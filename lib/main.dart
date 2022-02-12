@@ -8,7 +8,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => Counter()),
       ],
-      child: const MyApp(),
+      child: const MainConfig(),
     ),
   );
 }
@@ -30,13 +30,16 @@ class Counter with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainConfig extends StatelessWidget {
+  const MainConfig({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: 
+      ),
+      home: const MyHomePage(),
     );
   }
 }
