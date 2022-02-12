@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'assets/custom_color.dart';
+
 void main() {
   runApp(
     MultiProvider(
@@ -37,7 +39,7 @@ class MainConfig extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: 
+        primarySwatch: primaryColor,
       ),
       home: const MyHomePage(),
     );
