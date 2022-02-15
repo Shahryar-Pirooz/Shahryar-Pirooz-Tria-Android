@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:triapass/src/custom_color.dart';
 
 import 'Pages/introduction.dart';
-import 'assets/custom_color.dart';
 
 void main() {
   runApp(
@@ -41,6 +41,7 @@ class MainConfig extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: primaryColor,
+        fontFamily: 'MontserratAlternates',
       ),
       home: const Introduction(),
     );
