@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.2
   introduction_screen: ^3.0.0
-  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -62,9 +61,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/Cat.svg
-    - assets/images/Locked.svg
-    - assets/images/Searching.svg
+    - assets/images/Cat.png
+    - assets/images/Locked.png
+    - assets/images/Searching.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
