@@ -5,13 +5,14 @@ import 'package:triapass/src/custom_color.dart';
 
 class Introduction extends StatelessWidget {
   const Introduction({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IntroductionScreen(
         pages: [
+          //first page
           PageViewModel(
+            image: Image.asset('assets/images/Locked.png'),
             title: "",
             bodyWidget: Center(
                 child: RichText(
@@ -21,22 +22,54 @@ class Introduction extends StatelessWidget {
                 TriaHeader1('.')
               ]),
             )),
-            image: Image.asset('assets/images/Locked.png'),
           ),
+          //second page
           PageViewModel(
-            title: "Forget your old passwords and use Tria",
-            body: '',
+            title: "Why Tria",
+            bodyWidget: Center(
+                child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TriaBody('Tria', color: primaryColor, children: [
+                      TriaBody(' is full free forever.'),
+                      TriaBody('\n\nEasy to use.', color: lable),
+                      TriaBody('\n\nTria', color: primaryColor),
+                      TriaBody(' never saves your passwords.'),
+                      TriaBody('\n\nYou can use strong password anywhere.',
+                          color: lable),
+                      TriaBody('\n\nYou can even use'),
+                      TriaBody(' Tria', color: primaryColor),
+                      TriaBody(' offline.')
+                    ]))),
             image: Image.asset('assets/images/Searching.png'),
           ),
+          //Third page
           PageViewModel(
-            title: "Why Tria?",
-            bodyWidget: const Center(),
-            image: Image.asset('assets/images/Locked.png'),
-          ),
+              image: RichText(
+                textAlign: TextAlign.center,
+                text: TriaHeader2('At first we need\na', children: [
+                  TriaHeader1(' NAME'),
+                  TriaHeader2(' and\nyour'),
+                  TriaHeader1('CODE')
+                ]),
+              ),
+              title:
+                  'they can be empty and you can change them form setting any time',
+              bodyWidget: Center(),
+              decoration: const PageDecoration(
+                  titleTextStyle: TextStyle(color: primaryColor, fontSize: 18)))
         ],
+        next: const Icon(
+          Icons.navigate_next,
+          color: lable,
+        ),
+        back: const Icon(
+          Icons.navigate_before,
+          color: lable,
+        ),
+        showNextButton: true,
+        showBackButton: true,
         done: const TestPage(),
         onDone: () => const TestPage(),
-        next: const TestPage(),
       ),
     );
   }
