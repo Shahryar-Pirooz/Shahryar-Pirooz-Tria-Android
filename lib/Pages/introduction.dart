@@ -44,19 +44,34 @@ class Introduction extends StatelessWidget {
           ),
           //Third page
           PageViewModel(
-              image: RichText(
-                textAlign: TextAlign.center,
-                text: TriaHeader2('At first we need\na', children: [
-                  TriaHeader1(' NAME'),
-                  TriaHeader2(' and\nyour'),
-                  TriaHeader1('CODE')
-                ]),
-              ),
-              title:
-                  'they can be empty and you can change them form setting any time',
-              bodyWidget: Center(),
-              decoration: const PageDecoration(
-                  titleTextStyle: TextStyle(color: primaryColor, fontSize: 18)))
+            image: RichText(
+              textAlign: TextAlign.center,
+              text: TriaHeader2('At first we need\na', children: [
+                TriaHeader1(' NAME'),
+                TriaHeader2(' and\nyour'),
+                TriaHeader1('CODE'),
+                TriaBody(
+                    '\nthey can be empty and you can change them form setting any time',
+                    color: primaryColor),
+              ]),
+            ),
+            title: '',
+            bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const TextField(
+                  decoration: InputDecoration(hintText: 'Name'),
+                  textAlign: TextAlign.center,
+                ),
+                const TextField(
+                  decoration: InputDecoration(hintText: 'Code'),
+                  textAlign: TextAlign.center,
+                ),
+                TriaButton(() {}, 'save', Icons.save)
+              ],
+            ),
+          )
         ],
         next: const Icon(
           Icons.navigate_next,
