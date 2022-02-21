@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:provider/src/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triapass/main.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
+
+class SetFalseIsFirst {
+  final _prefs = SharedPreferences.getInstance();
+  Future<void> setFalse() async {
+    final prefs = await _prefs;
+    prefs.setBool("isFirst", false).then((bool success) => false);
+  }
+}
 
 class Introduction extends StatelessWidget {
   const Introduction({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SetFalseIsFirst().setFalse();
+    TextEditingController codeController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
     return Scaffold(
       body: IntroductionScreen(
         pages: [
@@ -60,12 +74,15 @@ class Introduction extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const TextField(
-                  decoration: InputDecoration(hintText: 'Name'),
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(hintText: 'Name'),
                   textAlign: TextAlign.center,
                 ),
-                const TextField(
-                  decoration: InputDecoration(hintText: 'Code'),
+                TextField(
+                  controller: codeController,
+                  decoration: const InputDecoration(hintText: 'Code'),
+                  obscureText: true,
                   textAlign: TextAlign.center,
                 ),
                 TriaButton(() {}, 'save', Icons.save)
