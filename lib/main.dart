@@ -5,20 +5,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triapass/src/custom_color.dart';
 
 import 'Pages/introduction.dart';
-import 'Pages/mainpage.dart';
+import 'Pages/main_page.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SaveData()),
+        ChangeNotifierProvider(create: (_) => ChangeVal()),
       ],
       child: const MainConfig(),
     ),
   );
 }
 
-class SaveData with ChangeNotifier, DiagnosticableTreeMixin {
+class ChangeVal with ChangeNotifier, DiagnosticableTreeMixin {
   bool _isFirst = true;
   String _name = '';
   String _code = '';
@@ -67,7 +67,7 @@ class MainConfig extends StatelessWidget {
               );
             }
           },
-          future: SPData().spIsFirst(context),
+          future: SPData().setIsFirst(context),
         ));
   }
 }
@@ -78,26 +78,43 @@ class SPData {
   late Future<String> _name;
   late Future<String> _code;
 
-  Future<bool> spIsFirst(BuildContext context) async {
+  Future<bool> setIsFirst(BuildContext context) async {
     final prefs = await _prefs;
     final isFirst = prefs.getBool('isFirst') ?? true;
     _isFirst =
         prefs.setBool('isFirst', isFirst).then((bool success) => isFirst);
-    Provider.of<SaveData>(context, listen: false).saveIsFirst(await _isFirst);
+    Provider.of<ChangeVal>(context, listen: false).saveIsFirst(await _isFirst);
     return _isFirst;
   }
 
-  Future<void> spName(BuildContext context) async {
+  Future<void> setNewName(BuildContext context, {String newName = ''}) async {
     final prefs = await _prefs;
-    final name = prefs.getString('name') ?? '';
+    final name = prefs.getString('name') ?? newName;
     _name = prefs.setString('name', name).then((bool success) => name);
-    context.watch<SaveData>().saveName(await _name);
+    Provider.of<ChangeVal>(context, listen: false).saveName(await _name);
   }
 
-  Future<void> spCode(BuildContext context) async {
+  Future<void> setNewCode(BuildContext context, {String newCode = ''}) async {
     final prefs = await _prefs;
-    final code = prefs.getString('code') ?? '';
+    final code = prefs.getString('code') ?? newCode;
     _code = prefs.setString('code', code).then((bool success) => code);
-    context.watch<SaveData>().saveCode(await _code);
+    Provider.of<ChangeVal>(context, listen: false).saveCode(await _code);
+  }
+
+  Future<void> setFalse() async {
+    final prefs = await _prefs;
+    prefs.setBool("isFirst", false).then((bool success) => false);
+  }
+
+  // Future<String?> getName() => _prefs.then((value) => value.getString('name'));
+
+  // Future<String?> getCode() => _prefs.then((value) => value.getString('code'));
+
+  Future<void> initProviderData(BuildContext context) async {
+    final prefs = await _prefs;
+    final name = prefs.getString('name') ?? '';
+    final code = prefs.getString('code') ?? '';
+    Provider.of<ChangeVal>(context, listen: false).saveName(name);
+    Provider.of<ChangeVal>(context, listen: false).saveCode(code);
   }
 }

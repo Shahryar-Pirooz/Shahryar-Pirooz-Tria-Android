@@ -6,19 +6,11 @@ import 'package:triapass/main.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
-class SetFalseIsFirst {
-  final _prefs = SharedPreferences.getInstance();
-  Future<void> setFalse() async {
-    final prefs = await _prefs;
-    prefs.setBool("isFirst", false).then((bool success) => false);
-  }
-}
-
 class Introduction extends StatelessWidget {
   const Introduction({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SetFalseIsFirst().setFalse();
+    SPData().setFalse();
     TextEditingController codeController = TextEditingController();
     TextEditingController nameController = TextEditingController();
     return Scaffold(
@@ -85,8 +77,20 @@ class Introduction extends StatelessWidget {
                   obscureText: true,
                   textAlign: TextAlign.center,
                 ),
-                TriaButton(() {}, 'save', Icons.save)
+                TriaButton(() {
+                  SPData().setNewName(context, newName: nameController.text);
+                  SPData().setNewCode(context, newCode: codeController.text);
+                }, 'save', Icons.save),
               ],
+            ),
+          ),
+          //Fourth page
+          PageViewModel(
+            decoration: const PageDecoration(pageColor: primaryColor),
+            image: Image.asset('assets/images/Cat.png'),
+            title: '',
+            bodyWidget: RichText(
+              text: TriaHeader1('Good Lock'),
             ),
           )
         ],
@@ -98,20 +102,11 @@ class Introduction extends StatelessWidget {
           Icons.navigate_before,
           color: lable,
         ),
+        done: const Text('done'),
         showNextButton: true,
         showBackButton: true,
-        done: const TestPage(),
-        onDone: () => const TestPage(),
+        onDone: () {},
       ),
     );
-  }
-}
-
-class TestPage extends StatelessWidget {
-  const TestPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
