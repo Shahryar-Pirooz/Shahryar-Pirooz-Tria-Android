@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/src/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triapass/Pages/main_page.dart';
 import 'package:triapass/main.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
 class Introduction extends StatelessWidget {
-  const Introduction({Key? key}) : super(key: key);
+  final codeController = TextEditingController();
+  final nameController = TextEditingController();
+  Introduction({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     SPData().setFalse();
-    TextEditingController codeController = TextEditingController();
-    TextEditingController nameController = TextEditingController();
     return Scaffold(
       body: IntroductionScreen(
         pages: [
@@ -105,7 +106,10 @@ class Introduction extends StatelessWidget {
         done: const Text('done'),
         showNextButton: true,
         showBackButton: true,
-        onDone: () {},
+        onDone: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const MainPage()));
+        },
       ),
     );
   }
