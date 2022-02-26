@@ -57,10 +57,10 @@ class ByDomain extends StatelessWidget {
                 child: RichText(
               textAlign: TextAlign.center,
               text: TriaBody('generate a new password,\n but you ', children: [
-                TriaBody('don’t ', color: primaryColor),
-                TriaBody('need to '),
-                TriaBody('remember ', color: primaryColor),
-                TriaBody(' it.')
+                TriaHeader2('don’t ', color: primaryColor),
+                TriaHeader2('need to '),
+                TriaHeader2('remember ', color: primaryColor),
+                TriaHeader2(' it.')
               ]),
             )),
             Expanded(
