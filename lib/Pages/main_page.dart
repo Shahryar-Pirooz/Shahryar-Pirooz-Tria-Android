@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
 import 'package:triapass/main.dart';
 import 'package:triapass/password_generate.dart';
@@ -42,9 +43,9 @@ class ByDomain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SPData().initProviderData(context);
-    String name = context.watch<ChangeVal>().name;
-    String code = context.watch<ChangeVal>().code;
-    String domain = '';
+    String _name = context.watch<ChangeVal>().name;
+    String _code = context.watch<ChangeVal>().code;
+    String _domain = '';
 
     return SafeArea(
       child: Padding(
@@ -56,7 +57,8 @@ class ByDomain extends StatelessWidget {
             Expanded(
                 child: RichText(
               textAlign: TextAlign.center,
-              text: TriaBody('generate a new password,\n but you ', children: [
+              text:
+                  TriaHeader2('generate a new password,\n but you ', children: [
                 TriaHeader2('don’t ', color: primaryColor),
                 TriaHeader2('need to '),
                 TriaHeader2('remember ', color: primaryColor),
@@ -71,13 +73,24 @@ class ByDomain extends StatelessWidget {
               ),
             ),
             TriaButton(() {
-              domain = domainController.text;
+              _domain = domainController.text;
               Map<String, String> stringMap = {
-                'name': name,
-                'code': code,
-                'domain': domain
+                'name': _name.toLowerCase(),
+                'code': _code.toLowerCase(),
+                'domain': _domain.toLowerCase()
               };
-            }, 'copy', Icons.copy)
+              String _pass = passwordGenerator(stringMap);
+              // Provider.of<FillPasswrd>(context, listen: false).passwrd = _pass;
+              SnackBar snackBar = SnackBar(
+                content: Text(_pass),
+                action: SnackBarAction(
+                    label: 'Copy',
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: _pass));
+                    }),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }, 'Generate', Icons.password)
           ],
         ),
       ),

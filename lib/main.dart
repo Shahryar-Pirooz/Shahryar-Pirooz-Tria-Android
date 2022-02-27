@@ -12,6 +12,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChangeVal()),
+        ChangeNotifierProvider(create: (_) => FillPasswrd()),
       ],
       child: const MainConfig(),
     ),
@@ -39,6 +40,17 @@ class ChangeVal with ChangeNotifier, DiagnosticableTreeMixin {
 
   void saveCode(String text) {
     _code = text;
+    notifyListeners();
+  }
+}
+
+class FillPasswrd with ChangeNotifier, DiagnosticableTreeMixin {
+  String _passwrd = '';
+
+  String get passwrd => _passwrd;
+
+  set passwrd(String pass) {
+    _passwrd = pass;
     notifyListeners();
   }
 }
