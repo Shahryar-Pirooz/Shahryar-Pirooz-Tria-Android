@@ -70,6 +70,7 @@ class Introduction extends StatelessWidget {
                 TextField(
                   controller: nameController,
                   decoration: const InputDecoration(hintText: 'Name'),
+                  keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.center,
                 ),
                 TextField(
