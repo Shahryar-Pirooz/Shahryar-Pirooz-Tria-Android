@@ -11,19 +11,41 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SPData().initProviderData(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        // drawer: Drawer(
+        //   backgroundColor: black,
+        //   child: ListView(
+        //     children: [
+        //       DrawerHeader(
+        //           child: RichText(
+        //         text: TriaHeader1('Tria', color: primaryColor),
+        //       ))
+        //     ],
+        //   ),
+        // ),
         appBar: AppBar(
-          bottom: const TabBar(tabs: [
-            Tab(
-              text: 'by domain',
-            ),
-            Tab(
-              text: 'by name',
-            )
-          ]),
+          actions: const [],
+          automaticallyImplyLeading: false,
+          backgroundColor: black,
+          foregroundColor: primaryColor,
+          shadowColor: lable,
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(
+                  Icons.web_stories,
+                ),
+              ),
+              Tab(
+                icon: Icon(Icons.privacy_tip_rounded),
+              )
+            ],
+            labelColor: primaryColor,
+            indicatorColor: primaryColor,
+            unselectedLabelColor: lable,
+          ),
         ),
         body: TabBarView(children: [
           ByDomain(),
