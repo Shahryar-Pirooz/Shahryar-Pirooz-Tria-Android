@@ -108,8 +108,8 @@ class Introduction extends StatelessWidget {
         showNextButton: true,
         showBackButton: true,
         onDone: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const MainPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
         },
       ),
     );

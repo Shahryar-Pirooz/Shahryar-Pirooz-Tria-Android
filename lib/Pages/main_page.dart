@@ -7,26 +7,38 @@ import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final GlobalKey<ScaffoldState> _drawerscaffoldkey =
+      GlobalKey<ScaffoldState>();
+  MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        // drawer: Drawer(
-        //   backgroundColor: black,
-        //   child: ListView(
-        //     children: [
-        //       DrawerHeader(
-        //           child: RichText(
-        //         text: TriaHeader1('Tria', color: primaryColor),
-        //       ))
-        //     ],
-        //   ),
-        // ),
+        key: _drawerscaffoldkey,
+        drawer: Drawer(
+          backgroundColor: black,
+          child: ListView(
+            children: [
+              DrawerHeader(
+                  child: RichText(
+                text: TriaHeader1('Tria', color: primaryColor),
+              ))
+            ],
+          ),
+        ),
         appBar: AppBar(
-          actions: const [],
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
+                Navigator.pop(context);
+              } else {
+                _drawerscaffoldkey.currentState!.openDrawer();
+              }
+            },
+          ),
           automaticallyImplyLeading: false,
           backgroundColor: black,
           foregroundColor: primaryColor,

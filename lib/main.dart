@@ -59,7 +59,7 @@ class MainConfig extends StatelessWidget {
               if (snapshot.data) {
                 return Introduction();
               } else {
-                return const MainPage();
+                return MainPage();
               }
             } else {
               return Container(
