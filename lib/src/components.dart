@@ -115,3 +115,40 @@ class TriaButton extends StatelessWidget {
     );
   }
 }
+
+class TriaMenuItem extends StatelessWidget {
+  GestureTapCallback onPress;
+  String txt;
+  IconData icon;
+  TriaMenuItem(this.txt, this.onPress, this.icon, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      child: Padding(
+        padding: const EdgeInsets.all(2),
+        child: Material(
+          color: black,
+          child: InkWell(
+            onTap: onPress,
+            splashColor: primaryColor,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    icon,
+                    color: white,
+                  ),
+                ),
+                Expanded(
+                    flex: 3, child: RichText(text: TriaBody(txt, color: white)))
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -15,6 +15,7 @@ class Introduction extends StatelessWidget {
   Widget build(BuildContext context) {
     SPData().setFalse();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IntroductionScreen(
         pages: [
           //first page
@@ -82,6 +83,11 @@ class Introduction extends StatelessWidget {
                 TriaButton(() {
                   SPData().setNewName(context, newName: nameController.text);
                   SPData().setNewCode(context, newCode: codeController.text);
+                  SnackBar snackBar = const SnackBar(
+                    content: Text('Save Name & Code'),
+                    duration: Duration(seconds: 1),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }, 'save', Icons.save),
               ],
             ),

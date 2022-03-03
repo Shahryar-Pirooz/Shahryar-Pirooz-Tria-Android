@@ -13,18 +13,26 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SPData().initProviderData(context);
+    String _name = Provider.of<ChangeVal>(context, listen: false).name;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         key: _drawerscaffoldkey,
+        resizeToAvoidBottomInset: false,
         drawer: Drawer(
           backgroundColor: black,
           child: ListView(
             children: [
               DrawerHeader(
                   child: RichText(
-                text: TriaHeader1('Tria', color: primaryColor),
-              ))
+                text: TriaHeader2('Hi \n\t',
+                    color: white,
+                    children: [TriaHeader1(_name, color: primaryColor)]),
+              )),
+              TriaMenuItem('Change Name', () {}, Icons.person),
+              TriaMenuItem('Change Code', () {}, Icons.lock),
+              TriaMenuItem('About Tria', () {}, Icons.info),
             ],
           ),
         ),
@@ -75,10 +83,10 @@ class ByDomain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // SPData().initProviderData(context);
     String _name = context.watch<ChangeVal>().name;
     String _code = context.watch<ChangeVal>().code;
     String _domain = '';
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -149,17 +157,6 @@ class ByName extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Expanded(
-            //     child: RichText(
-            //   textAlign: TextAlign.center,
-            //   text:
-            //       TriaHeader2('generate a new password,\n but you ', children: [
-            //     TriaHeader2('don’t ', color: primaryColor),
-            //     TriaHeader2('need to '),
-            //     TriaHeader2('remember ', color: primaryColor),
-            //     TriaHeader2(' it.')
-            //   ]),
-            // )),
             Expanded(
               child: TextField(
                 decoration: const InputDecoration(hintText: 'Name'),
