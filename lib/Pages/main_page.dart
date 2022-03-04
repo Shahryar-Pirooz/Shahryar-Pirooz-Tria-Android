@@ -37,13 +37,6 @@ class MainPage extends StatelessWidget {
             ],
           ),
         ),
-        onDrawerChanged: (isOpened) {
-          if (isOpened) {
-            context.read<ChangeDrawerIcon>().icon = Icons.close;
-          } else {
-            context.read<ChangeDrawerIcon>().icon = Icons.menu;
-          }
-        },
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(context.watch<ChangeDrawerIcon>().icon),
@@ -87,6 +80,7 @@ class MainPage extends StatelessWidget {
 
 class ByDomain extends StatelessWidget {
   final _domainController = TextEditingController();
+  final _codeController = TextEditingController();
 
   ByDomain({Key? key}) : super(key: key);
 
@@ -94,8 +88,8 @@ class ByDomain extends StatelessWidget {
   Widget build(BuildContext context) {
     // SPData().initProviderData(context);
     String _name = context.watch<ChangeVal>().name;
-    String _code = context.watch<ChangeVal>().code;
     String _domain = '';
+    String _code = '';
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -115,18 +109,29 @@ class ByDomain extends StatelessWidget {
               ]),
             )),
             Expanded(
-              child: TextField(
-                decoration: const InputDecoration(hintText: 'Domain'),
-                textAlign: TextAlign.center,
-                controller: _domainController,
-                keyboardType: TextInputType.url,
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: const InputDecoration(hintText: 'Code'),
+                    textAlign: TextAlign.center,
+                    controller: _codeController,
+                    obscureText: true,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(hintText: 'Domain'),
+                    textAlign: TextAlign.center,
+                    controller: _domainController,
+                    keyboardType: TextInputType.url,
+                  ),
+                ],
               ),
             ),
             TriaButton(() {
               _domain = _domainController.text;
+              _code = _codeController.text;
               Map<String, String> stringMap = {
                 'name': _name.toLowerCase(),
-                'code': _code.toLowerCase(),
+                'code': _code,
                 'domain': _domain.toLowerCase()
               };
               String _pass = passwordGenerator(stringMap);

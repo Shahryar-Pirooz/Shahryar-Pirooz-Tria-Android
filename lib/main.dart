@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triapass/Pages/authentication.dart';
 import 'package:triapass/src/custom_color.dart';
 
 import 'Pages/introduction.dart';
@@ -22,11 +23,11 @@ void main() {
 class ChangeVal with ChangeNotifier, DiagnosticableTreeMixin {
   bool _isFirst = true;
   String _name = '';
-  String _code = '';
+  String _pass = '';
 
   bool get isFirst => _isFirst;
   String get name => _name;
-  String get code => _code;
+  String get pass => _pass;
 
   void saveIsFirst(bool b) {
     _isFirst = b;
@@ -38,8 +39,8 @@ class ChangeVal with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  void saveCode(String text) {
-    _code = text;
+  void savePass(String text) {
+    _pass = text;
     notifyListeners();
   }
 }
@@ -72,7 +73,7 @@ class Preload extends StatelessWidget {
               if (snapshot.data) {
                 return Introduction();
               } else {
-                return MainPage();
+                return Authentication();
               }
             } else {
               return Container(
@@ -89,7 +90,7 @@ class SPData {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> _isFirst;
   late Future<String> _name;
-  late Future<String> _code;
+  late Future<String> _pass;
 
   Future<void> setNewName(BuildContext context, {String newName = ''}) async {
     final prefs = await _prefs;
@@ -98,11 +99,11 @@ class SPData {
     Provider.of<ChangeVal>(context, listen: false).saveName(await _name);
   }
 
-  Future<void> setNewCode(BuildContext context, {String newCode = ''}) async {
+  Future<void> setNewPass(BuildContext context, {String newPass = ''}) async {
     final prefs = await _prefs;
-    final code = prefs.getString('code') ?? newCode;
-    _code = prefs.setString('code', code).then((bool success) => code);
-    Provider.of<ChangeVal>(context, listen: false).saveCode(await _code);
+    final pass = prefs.getString('pass') ?? newPass;
+    _pass = prefs.setString('pass', pass).then((bool success) => pass);
+    Provider.of<ChangeVal>(context, listen: false).savePass(await _pass);
   }
 
   Future<void> setFalse() async {
@@ -113,13 +114,13 @@ class SPData {
   Future<bool> initProviderData(BuildContext context) async {
     final prefs = await _prefs;
     final name = prefs.getString('name') ?? '';
-    final code = prefs.getString('code') ?? '';
+    final pass = prefs.getString('pass') ?? '';
     final isFirst = prefs.getBool('isFirst') ?? true;
     _isFirst =
         prefs.setBool('isFirst', isFirst).then((bool success) => isFirst);
 
     Provider.of<ChangeVal>(context, listen: false).saveName(name);
-    Provider.of<ChangeVal>(context, listen: false).saveCode(code);
+    Provider.of<ChangeVal>(context, listen: false).savePass(pass);
     Provider.of<ChangeVal>(context, listen: false).saveIsFirst(await _isFirst);
 
     return _isFirst;
