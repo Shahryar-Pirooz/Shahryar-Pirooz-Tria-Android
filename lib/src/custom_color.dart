@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const int _primaryColor = 0xFF69CB3A;
 const Color white = Color(0XFFFAFAFA);
 const Color black = Colors.black;
+const Color blurBlack = Color(0Xaa000000);
 const Color lable = Color(0XFF525252);
 
 const MaterialColor primaryColor = MaterialColor(_primaryColor, <int, Color>{

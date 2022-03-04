@@ -129,8 +129,9 @@ class TriaMenuItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: Material(
-          color: black,
+          color: Colors.transparent,
           child: InkWell(
+            highlightColor: Colors.transparent,
             onTap: onPress,
             splashColor: primaryColor,
             child: Row(

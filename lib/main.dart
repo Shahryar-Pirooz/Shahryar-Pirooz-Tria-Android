@@ -12,8 +12,9 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChangeVal()),
+        ChangeNotifierProvider(create: (_) => ChangeDrawerIcon())
       ],
-      child: const MainConfig(),
+      child: const Preload(),
     ),
   );
 }
@@ -43,11 +44,23 @@ class ChangeVal with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-class MainConfig extends StatelessWidget {
-  const MainConfig({Key? key}) : super(key: key);
+class ChangeDrawerIcon with ChangeNotifier, DiagnosticableTreeMixin {
+  IconData _icon = Icons.menu;
+
+  IconData get icon => _icon;
+
+  set icon(IconData icon) {
+    _icon = icon;
+    notifyListeners();
+  }
+}
+
+class Preload extends StatelessWidget {
+  const Preload({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SPData().initProviderData(context);
     return MaterialApp(
         theme: ThemeData(
           primarySwatch: primaryColor,
@@ -67,7 +80,7 @@ class MainConfig extends StatelessWidget {
               );
             }
           },
-          future: SPData().setIsFirst(context),
+          future: SPData().initProviderData(context),
         ));
   }
 }
@@ -77,15 +90,6 @@ class SPData {
   late Future<bool> _isFirst;
   late Future<String> _name;
   late Future<String> _code;
-
-  Future<bool> setIsFirst(BuildContext context) async {
-    final prefs = await _prefs;
-    final isFirst = prefs.getBool('isFirst') ?? true;
-    _isFirst =
-        prefs.setBool('isFirst', isFirst).then((bool success) => isFirst);
-    Provider.of<ChangeVal>(context, listen: false).saveIsFirst(await _isFirst);
-    return _isFirst;
-  }
 
   Future<void> setNewName(BuildContext context, {String newName = ''}) async {
     final prefs = await _prefs;
@@ -106,11 +110,18 @@ class SPData {
     prefs.setBool("isFirst", false).then((bool success) => false);
   }
 
-  Future<void> initProviderData(BuildContext context) async {
+  Future<bool> initProviderData(BuildContext context) async {
     final prefs = await _prefs;
     final name = prefs.getString('name') ?? '';
     final code = prefs.getString('code') ?? '';
+    final isFirst = prefs.getBool('isFirst') ?? true;
+    _isFirst =
+        prefs.setBool('isFirst', isFirst).then((bool success) => isFirst);
+
     Provider.of<ChangeVal>(context, listen: false).saveName(name);
     Provider.of<ChangeVal>(context, listen: false).saveCode(code);
+    Provider.of<ChangeVal>(context, listen: false).saveIsFirst(await _isFirst);
+
+    return _isFirst;
   }
 }

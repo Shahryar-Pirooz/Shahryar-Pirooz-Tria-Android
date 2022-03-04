@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
@@ -13,7 +14,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SPData().initProviderData(context);
     String _name = Provider.of<ChangeVal>(context, listen: false).name;
     return DefaultTabController(
       length: 2,
@@ -21,7 +21,8 @@ class MainPage extends StatelessWidget {
         key: _drawerscaffoldkey,
         resizeToAvoidBottomInset: false,
         drawer: Drawer(
-          backgroundColor: black,
+          elevation: 1,
+          backgroundColor: blurBlack,
           child: ListView(
             children: [
               DrawerHeader(
@@ -36,9 +37,16 @@ class MainPage extends StatelessWidget {
             ],
           ),
         ),
+        onDrawerChanged: (isOpened) {
+          if (isOpened) {
+            context.read<ChangeDrawerIcon>().icon = Icons.close;
+          } else {
+            context.read<ChangeDrawerIcon>().icon = Icons.menu;
+          }
+        },
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.menu),
+            icon: Icon(context.watch<ChangeDrawerIcon>().icon),
             onPressed: () {
               if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
                 Navigator.pop(context);
@@ -51,6 +59,7 @@ class MainPage extends StatelessWidget {
           backgroundColor: black,
           foregroundColor: primaryColor,
           shadowColor: lable,
+          elevation: 10,
           bottom: const TabBar(
             tabs: [
               Tab(
