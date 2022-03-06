@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+// import 'package:provider/src/provider.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:provider/src/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triapass/Pages/main_page.dart';
 import 'package:triapass/main.dart';
 import 'package:triapass/src/components.dart';

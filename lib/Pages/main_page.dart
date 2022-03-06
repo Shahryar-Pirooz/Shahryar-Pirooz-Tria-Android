@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
@@ -32,7 +32,8 @@ class MainPage extends StatelessWidget {
                     children: [TriaHeader1(_name, color: primaryColor)]),
               )),
               TriaMenuItem('Change Name', () {}, Icons.person),
-              TriaMenuItem('Change Code', () {}, Icons.lock),
+              TriaMenuItem('Change Password', () {}, Icons.lock),
+              TriaMenuItem('Dark Mode', () {}, Icons.dark_mode),
               TriaMenuItem('About Tria', () {}, Icons.info),
             ],
           ),

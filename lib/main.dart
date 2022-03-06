@@ -4,9 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triapass/Pages/authentication.dart';
 import 'package:triapass/src/custom_color.dart';
-
 import 'Pages/introduction.dart';
-import 'Pages/main_page.dart';
 
 void main() {
   runApp(
