@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +68,7 @@ class Preload extends StatelessWidget {
           primarySwatch: primaryColor,
           fontFamily: 'MontserratAlternates',
         ),
+        themeMode: ThemeMode.dark,
         home: FutureBuilder<bool>(
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
@@ -92,16 +96,17 @@ class SPData {
 
   Future<void> setNewName(BuildContext context, {String newName = ''}) async {
     final prefs = await _prefs;
-    final name = prefs.getString('name') ?? newName;
+    final name = newName;
     _name = prefs.setString('name', name).then((bool success) => name);
-    Provider.of<ChangeVal>(context, listen: false).saveName(await _name);
+    context.read<ChangeVal>().saveName(await _name);
   }
 
   Future<void> setNewPass(BuildContext context, {String newPass = ''}) async {
     final prefs = await _prefs;
-    final pass = prefs.getString('pass') ?? newPass;
+    var bytes = utf8.encode(newPass); // data being hashed
+    var pass = sha256.convert(bytes).toString();
     _pass = prefs.setString('pass', pass).then((bool success) => pass);
-    Provider.of<ChangeVal>(context, listen: false).savePass(await _pass);
+    context.read<ChangeVal>().saveName(await _pass);
   }
 
   Future<void> setFalse() async {

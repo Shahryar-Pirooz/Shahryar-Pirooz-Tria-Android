@@ -1,5 +1,4 @@
-import 'dart:developer' as DEV;
-import 'dart:io';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/src/provider.dart';
@@ -15,6 +14,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _name = Provider.of<ChangeVal>(context, listen: true).name;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -27,14 +27,11 @@ class MainPage extends StatelessWidget {
             children: [
               DrawerHeader(
                   child: RichText(
-                text: TriaHeader2('Hi \n\t', color: white, children: [
-                  TriaHeader1(
-                      Provider.of<ChangeVal>(context, listen: true).name,
-                      color: primaryColor)
-                ]),
+                text: TriaHeader2('Hi \n\t',
+                    color: white,
+                    children: [TriaHeader1(_name, color: primaryColor)]),
               )),
               TriaMenuItem('Change Name', () {
-                Navigator.pop(context);
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -53,14 +50,8 @@ class MainPage extends StatelessWidget {
                               TriaButton(() {
                                 SPData().setNewName(context,
                                     newName: _controller.text);
-                                SnackBar snackBar = SnackBar(
-                                  content: Text(
-                                      '${_controller.text} has been saved'),
-                                  duration: const Duration(seconds: 1),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                Navigator.pop(context);
+                                Provider.of<ChangeVal>(context, listen: false)
+                                    .saveName(_controller.text);
                               }, 'Save', Icons.save)
                             ],
                           ),
@@ -68,41 +59,7 @@ class MainPage extends StatelessWidget {
                       );
                     });
               }, Icons.person),
-              TriaMenuItem('Change Password', () {
-                Navigator.pop(context);
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      TextEditingController _controller =
-                          TextEditingController();
-                      return AlertDialog(
-                        title: const Text('Change Password'),
-                        content: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              TextField(
-                                controller: _controller,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                    hintText: 'New Password'),
-                              ),
-                              TriaButton(() {
-                                SPData().setNewPass(context,
-                                    newPass: _controller.text);
-                                SnackBar snackBar = const SnackBar(
-                                  content: Text('Password has been saved'),
-                                  duration: Duration(seconds: 1),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                Navigator.pop(context);
-                              }, 'Save', Icons.save)
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-              }, Icons.lock),
+              TriaMenuItem('Change Password', () {}, Icons.lock),
               TriaMenuItem('Support Tria', () {}, Icons.monetization_on),
               TriaMenuItem('About Tria', () {}, Icons.info),
             ],
