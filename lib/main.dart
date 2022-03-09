@@ -106,7 +106,7 @@ class SPData {
     var bytes = utf8.encode(newPass); // data being hashed
     var pass = sha256.convert(bytes).toString();
     _pass = prefs.setString('pass', pass).then((bool success) => pass);
-    context.read<ChangeVal>().saveName(await _pass);
+    context.read<ChangeVal>().savePass(await _pass);
   }
 
   Future<void> setFalse() async {

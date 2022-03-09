@@ -1,4 +1,3 @@
-import 'dart:developer' as devel;
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -36,8 +35,6 @@ class Authentication extends StatelessWidget {
                 var _bytes =
                     utf8.encode(_passController.text); // data being hashed
                 var _hashPass = sha256.convert(_bytes);
-                devel.log(_hashPass.toString(), name: "Hash Pass");
-                devel.log(_savedPass, name: "saved Pass");
                 if (_hashPass.toString() == _savedPass) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MainPage()));
