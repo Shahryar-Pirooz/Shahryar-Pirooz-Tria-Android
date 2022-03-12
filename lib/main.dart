@@ -121,11 +121,9 @@ class SPData {
     final isFirst = prefs.getBool('isFirst') ?? true;
     _isFirst =
         prefs.setBool('isFirst', isFirst).then((bool success) => isFirst);
-
     Provider.of<ChangeVal>(context, listen: false).saveName(name);
     Provider.of<ChangeVal>(context, listen: false).savePass(pass);
     Provider.of<ChangeVal>(context, listen: false).saveIsFirst(await _isFirst);
-
     return _isFirst;
   }
 }
