@@ -103,8 +103,41 @@ class MainPage extends StatelessWidget {
                       );
                     });
               }, Icons.lock),
-              TriaMenuItem('Support Tria', () {}, Icons.monetization_on),
-              TriaMenuItem('About Tria', () {}, Icons.info),
+              TriaMenuItem('About Tria', () {
+                Widget aboutMe = RichText(
+                  text: TriaBody(''' Hello world,
+
+This is Shahryar, the developer of Tria. Passwords are so important in the modern world, but the majority of people use a simple password or use the same password for all accounts. So I created Tria to help them.
+
+Tria is a modern password generator that creates the same password by the same input data, but Tria never saves any password and just uses hash (HMAC/SHA256) to create your passwords. I tried to set all the standards for creating a strong password in Tria, such as:
+
+> At least 8 characters.
+> A mixture of both uppercase and lowercase letters.
+> A mixture of letters and numbers.
+> Inclusion of at least one special character, e.g., ! @ # ? ].
+
+If you like Tria you can support me by sharing Tria with your friends or donating! ''',
+                      children: [
+                        TriaBody(
+                            '\n\nUrl: https://Tirapass.web.app\n\nLicense: GNU General Public License v3.0\n\nversion: 0.1.0',
+                            color: lable)
+                      ]),
+                );
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: RichText(
+                          text: TriaHeader2('About Tria', color: primaryColor),
+                        ),
+                        content: SingleChildScrollView(
+                          child: Column(
+                            children: [aboutMe],
+                          ),
+                        ),
+                      );
+                    });
+              }, Icons.info),
             ],
           ),
         ),
