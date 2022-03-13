@@ -19,7 +19,7 @@ class MainPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         key: _drawerscaffoldkey,
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         drawer: Drawer(
           elevation: 1,
           backgroundColor: blurBlack,
@@ -197,59 +197,63 @@ class ByDomain extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-                child: RichText(
-              textAlign: TextAlign.center,
-              text:
-                  TriaHeader2('generate a new password,\n but you ', children: [
-                TriaHeader2('don’t ', color: primaryColor),
-                TriaHeader2('need to '),
-                TriaHeader2('remember ', color: primaryColor),
-                TriaHeader2(' it.')
-              ]),
-            )),
-            Expanded(
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: const InputDecoration(hintText: 'Code'),
-                    textAlign: TextAlign.center,
-                    controller: _codeController,
-                    obscureText: true,
+        child: SingleChildScrollView(
+          child: IntrinsicHeight(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TriaHeader2('generate a new password,\n but you ',
+                      children: [
+                        TriaHeader2('don’t ', color: primaryColor),
+                        TriaHeader2('need to '),
+                        TriaHeader2('remember ', color: primaryColor),
+                        TriaHeader2(' it.')
+                      ]),
+                )),
+                Expanded(
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: const InputDecoration(hintText: 'Code'),
+                        textAlign: TextAlign.center,
+                        controller: _codeController,
+                        obscureText: true,
+                      ),
+                      TextField(
+                        decoration: const InputDecoration(hintText: 'Domain'),
+                        textAlign: TextAlign.center,
+                        controller: _domainController,
+                        keyboardType: TextInputType.url,
+                      ),
+                    ],
                   ),
-                  TextField(
-                    decoration: const InputDecoration(hintText: 'Domain'),
-                    textAlign: TextAlign.center,
-                    controller: _domainController,
-                    keyboardType: TextInputType.url,
-                  ),
-                ],
-              ),
+                ),
+                TriaButton(() {
+                  _domain = _domainController.text;
+                  _code = _codeController.text;
+                  Map<String, String> stringMap = {
+                    'name': _name.toLowerCase(),
+                    'code': _code,
+                    'domain': _domain.toLowerCase()
+                  };
+                  String _pass = passwordGenerator(stringMap);
+                  SnackBar snackBar = SnackBar(
+                    content: Text(_pass),
+                    action: SnackBarAction(
+                        label: 'Copy',
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: _pass));
+                        }),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }, 'Generate', Icons.password)
+              ],
             ),
-            TriaButton(() {
-              _domain = _domainController.text;
-              _code = _codeController.text;
-              Map<String, String> stringMap = {
-                'name': _name.toLowerCase(),
-                'code': _code,
-                'domain': _domain.toLowerCase()
-              };
-              String _pass = passwordGenerator(stringMap);
-              SnackBar snackBar = SnackBar(
-                content: Text(_pass),
-                action: SnackBarAction(
-                    label: 'Copy',
-                    onPressed: () {
-                      Clipboard.setData(ClipboardData(text: _pass));
-                    }),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }, 'Generate', Icons.password)
-          ],
+          ),
         ),
       ),
     );
@@ -271,59 +275,68 @@ class ByName extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: TextField(
-                decoration: const InputDecoration(hintText: 'Name'),
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.emailAddress,
-                controller: _nameController,
-              ),
+        child: SingleChildScrollView(
+          child: IntrinsicHeight(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: TextField(
+                    decoration: const InputDecoration(hintText: 'Name'),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.emailAddress,
+                    controller: _nameController,
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: TextField(
+                    decoration: const InputDecoration(hintText: 'Code'),
+                    obscureText: true,
+                    textAlign: TextAlign.center,
+                    controller: _codeController,
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: TextField(
+                    decoration: const InputDecoration(hintText: 'Domain'),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.url,
+                    controller: _domainController,
+                  ),
+                ),
+                TriaButton(() {
+                  _name = _nameController.text == ''
+                      ? 'tria'
+                      : _nameController.text;
+                  _code = _codeController.text == ''
+                      ? 'tria'
+                      : _codeController.text;
+                  _domain = _domainController.text == ''
+                      ? 'tria'
+                      : _domainController.text;
+                  Map<String, String> stringMap = {
+                    'name': _name.toLowerCase(),
+                    'code': _code.toLowerCase(),
+                    'domain': _domain.toLowerCase()
+                  };
+                  String _pass = passwordGenerator(stringMap);
+                  SnackBar snackBar = SnackBar(
+                    content: Text(_pass),
+                    action: SnackBarAction(
+                        label: 'Copy',
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: _pass));
+                        }),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }, 'Generate', Icons.password)
+              ],
             ),
-            Expanded(
-              child: TextField(
-                decoration: const InputDecoration(hintText: 'Code'),
-                obscureText: true,
-                textAlign: TextAlign.center,
-                controller: _codeController,
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                decoration: const InputDecoration(hintText: 'Domain'),
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.url,
-                controller: _domainController,
-              ),
-            ),
-            TriaButton(() {
-              _name =
-                  _nameController.text == '' ? 'tria' : _nameController.text;
-              _code =
-                  _codeController.text == '' ? 'tria' : _codeController.text;
-              _domain = _domainController.text == ''
-                  ? 'tria'
-                  : _domainController.text;
-              Map<String, String> stringMap = {
-                'name': _name.toLowerCase(),
-                'code': _code.toLowerCase(),
-                'domain': _domain.toLowerCase()
-              };
-              String _pass = passwordGenerator(stringMap);
-              SnackBar snackBar = SnackBar(
-                content: Text(_pass),
-                action: SnackBarAction(
-                    label: 'Copy',
-                    onPressed: () {
-                      Clipboard.setData(ClipboardData(text: _pass));
-                    }),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }, 'Generate', Icons.password)
-          ],
+          ),
         ),
       ),
     );
