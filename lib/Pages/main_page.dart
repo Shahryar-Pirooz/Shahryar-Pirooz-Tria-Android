@@ -1,4 +1,3 @@
-import 'dart:developer' as DEV;
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -160,12 +159,10 @@ class MainPage extends StatelessWidget {
           bottom: const TabBar(
             tabs: [
               Tab(
-                icon: Icon(
-                  Icons.web_stories,
-                ),
+                icon: Icon(Icons.web_asset),
               ),
               Tab(
-                icon: Icon(Icons.privacy_tip_rounded),
+                icon: Icon(Icons.security),
               )
             ],
             labelColor: primaryColor,
