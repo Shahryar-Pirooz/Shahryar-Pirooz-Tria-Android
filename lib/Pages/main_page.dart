@@ -7,6 +7,8 @@ import 'package:triapass/password_generate.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
+import 'dart:developer' as DEV;
+
 class MainPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       GlobalKey<ScaffoldState>();
@@ -170,7 +172,7 @@ class MainPage extends StatelessWidget {
             unselectedLabelColor: lable,
           ),
         ),
-        body: TabBarView(children: [
+        body: const TabBarView(children: [
           WithoutName(),
           WithName(),
         ]),
@@ -180,14 +182,10 @@ class MainPage extends StatelessWidget {
 }
 
 class WithoutName extends StatelessWidget {
-  final _domainController = TextEditingController();
-  final _codeController = TextEditingController();
-
-  WithoutName({Key? key}) : super(key: key);
+  const WithoutName({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // SPData().initProviderData(context);
     String _name = context.watch<ChangeVal>().name;
     String _domain = '';
     String _code = '';
@@ -213,27 +211,38 @@ class WithoutName extends StatelessWidget {
                           TriaHeader2(' it.')
                         ]),
                   )),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        TextField(
-                          decoration: const InputDecoration(hintText: 'Code'),
-                          textAlign: TextAlign.center,
-                          controller: _codeController,
-                          obscureText: true,
-                        ),
-                        TextField(
-                          decoration: const InputDecoration(hintText: 'Domain'),
-                          textAlign: TextAlign.center,
-                          controller: _domainController,
-                          keyboardType: TextInputType.url,
-                        ),
-                      ],
+                  const Divider(
+                    color: white,
+                    height: 32,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Enter Your Code',
+                      suffixIcon: Icon(Icons.visibility),
+                      labelText: 'Code',
+                      border: OutlineInputBorder(),
                     ),
+                    textAlign: TextAlign.center,
+                    obscureText: true,
+                    onChanged: (value) => _code = value,
+                  ),
+                  const Divider(
+                    color: white,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                        hintText: 'EX:google.com',
+                        labelText: 'Domain',
+                        border: OutlineInputBorder()),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.url,
+                    onChanged: (value) => _domain = value,
+                  ),
+                  const Divider(
+                    color: white,
+                    height: 24,
                   ),
                   TriaButton(() {
-                    _domain = _domainController.text;
-                    _code = _codeController.text;
                     Map<String, String> stringMap = {
                       'name': _name.toLowerCase(),
                       'code': _code,
@@ -261,11 +270,7 @@ class WithoutName extends StatelessWidget {
 }
 
 class WithName extends StatelessWidget {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _codeController = TextEditingController();
-  final TextEditingController _domainController = TextEditingController();
-
-  WithName({Key? key}) : super(key: key);
+  const WithName({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -283,40 +288,50 @@ class WithName extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(hintText: 'Name'),
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.emailAddress,
-                      controller: _nameController,
-                    ),
+                  const Divider(
+                    color: white,
+                    height: 32,
                   ),
-                  Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(hintText: 'Code'),
-                      obscureText: true,
-                      textAlign: TextAlign.center,
-                      controller: _codeController,
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Enter Your Name',
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
                     ),
+                    textAlign: TextAlign.center,
+                    onChanged: (value) => _name = value,
                   ),
-                  Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(hintText: 'Domain'),
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.url,
-                      controller: _domainController,
+                  const Divider(
+                    color: white,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Enter Your Code',
+                      suffixIcon: Icon(Icons.visibility),
+                      labelText: 'Code',
+                      border: OutlineInputBorder(),
                     ),
+                    textAlign: TextAlign.center,
+                    obscureText: true,
+                    onChanged: (value) => _code = value,
+                  ),
+                  const Divider(
+                    color: white,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                        hintText: 'EX:google.com',
+                        labelText: 'Domain',
+                        border: OutlineInputBorder()),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.url,
+                    onChanged: (value) => _domain = value,
+                  ),
+                  const Divider(
+                    color: white,
+                    height: 32,
                   ),
                   TriaButton(() {
-                    _name = _nameController.text == ''
-                        ? 'tria'
-                        : _nameController.text;
-                    _code = _codeController.text == ''
-                        ? 'tria'
-                        : _codeController.text;
-                    _domain = _domainController.text == ''
-                        ? 'tria'
-                        : _domainController.text;
                     Map<String, String> stringMap = {
                       'name': _name.toLowerCase(),
                       'code': _code.toLowerCase(),
