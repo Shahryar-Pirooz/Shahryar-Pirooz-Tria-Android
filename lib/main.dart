@@ -14,7 +14,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChangeVal()),
-        ChangeNotifierProvider(create: (_) => ChangeDrawerIcon())
+        ChangeNotifierProvider(create: (_) => ChangeDrawerIcon()),
+        ChangeNotifierProvider(create: (_) => VisiblePassword()),
       ],
       child: const Preload(),
     ),
@@ -53,6 +54,18 @@ class ChangeDrawerIcon with ChangeNotifier, DiagnosticableTreeMixin {
 
   set icon(IconData icon) {
     _icon = icon;
+    notifyListeners();
+  }
+}
+
+class VisiblePassword with ChangeNotifier, DiagnosticableTreeMixin {
+  bool _isVisible = false;
+
+  bool get isVisible => _isVisible;
+  bool get isHide => _isVisible ? false : true;
+
+  set isVisible(isVible) {
+    _isVisible = isVible;
     notifyListeners();
   }
 }
