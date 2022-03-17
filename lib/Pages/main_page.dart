@@ -171,19 +171,19 @@ class MainPage extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          ByDomain(),
-          ByName(),
+          WithoutName(),
+          WithName(),
         ]),
       ),
     );
   }
 }
 
-class ByDomain extends StatelessWidget {
+class WithoutName extends StatelessWidget {
   final _domainController = TextEditingController();
   final _codeController = TextEditingController();
 
-  ByDomain({Key? key}) : super(key: key);
+  WithoutName({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -260,12 +260,12 @@ class ByDomain extends StatelessWidget {
   }
 }
 
-class ByName extends StatelessWidget {
+class WithName extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _domainController = TextEditingController();
 
-  ByName({Key? key}) : super(key: key);
+  WithName({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
