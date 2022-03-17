@@ -26,10 +26,33 @@ class Authentication extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TriaBody('Please authenticate\nto start ',
                       children: [TriaBody('Tria', color: primaryColor)])),
+              const Divider(
+                color: white,
+              ),
               TextField(
                 autofocus: true,
-                obscureText: true,
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                        onPressed: () => Provider.of<VisiblePassword>(context,
+                                    listen: false)
+                                .isVisible =
+                            Provider.of<VisiblePassword>(context, listen: false)
+                                    .isVisible
+                                ? false
+                                : true,
+                        icon: Icon(
+                            Provider.of<VisiblePassword>(context, listen: true)
+                                    .isVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility))),
+                obscureText:
+                    Provider.of<VisiblePassword>(context, listen: true).isHide,
                 controller: _passController,
+              ),
+              const Divider(
+                color: white,
               ),
               TriaButton(() {
                 var _bytes =

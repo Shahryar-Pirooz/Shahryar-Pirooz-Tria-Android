@@ -7,8 +7,6 @@ import 'package:triapass/password_generate.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
-import 'dart:developer' as DEV;
-
 class MainPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       GlobalKey<ScaffoldState>();
