@@ -195,72 +195,69 @@ class WithoutName extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: SingleChildScrollView(
-            child: IntrinsicHeight(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TriaHeader2('generate a new password,\n but you ',
-                        children: [
-                          TriaHeader2('don’t ', color: primaryColor),
-                          TriaHeader2('need to '),
-                          TriaHeader2('remember ', color: primaryColor),
-                          TriaHeader2(' it.')
-                        ]),
-                  )),
-                  const Divider(
-                    color: white,
-                    height: 32,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TriaHeader2('generate a new password,\n but you ',
+                      children: [
+                        TriaHeader2('don’t ', color: primaryColor),
+                        TriaHeader2('need to '),
+                        TriaHeader2('remember ', color: primaryColor),
+                        TriaHeader2(' it.')
+                      ]),
+                ),
+                const Divider(
+                  color: white,
+                  height: 32,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Your Code',
+                    suffixIcon: Icon(Icons.visibility),
+                    labelText: 'Code',
+                    border: OutlineInputBorder(),
                   ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Your Code',
-                      suffixIcon: Icon(Icons.visibility),
-                      labelText: 'Code',
-                      border: OutlineInputBorder(),
-                    ),
-                    textAlign: TextAlign.center,
-                    obscureText: true,
-                    onChanged: (value) => _code = value,
-                  ),
-                  const Divider(
-                    color: white,
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                        hintText: 'EX:google.com',
-                        labelText: 'Domain',
-                        border: OutlineInputBorder()),
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.url,
-                    onChanged: (value) => _domain = value,
-                  ),
-                  const Divider(
-                    color: white,
-                    height: 24,
-                  ),
-                  TriaButton(() {
-                    Map<String, String> stringMap = {
-                      'name': _name.toLowerCase(),
-                      'code': _code,
-                      'domain': _domain.toLowerCase()
-                    };
-                    String _pass = passwordGenerator(stringMap);
-                    SnackBar snackBar = SnackBar(
-                      content: Text(_pass),
-                      action: SnackBarAction(
-                          label: 'Copy',
-                          onPressed: () {
-                            Clipboard.setData(ClipboardData(text: _pass));
-                          }),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }, 'Generate', Icons.password)
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                  obscureText: true,
+                  onChanged: (value) => _code = value,
+                ),
+                const Divider(
+                  color: white,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                      hintText: 'EX:google.com',
+                      labelText: 'Domain',
+                      border: OutlineInputBorder()),
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.url,
+                  onChanged: (value) => _domain = value,
+                ),
+                const Divider(
+                  color: white,
+                  height: 24,
+                ),
+                TriaButton(() {
+                  Map<String, String> stringMap = {
+                    'name': _name.toLowerCase(),
+                    'code': _code,
+                    'domain': _domain.toLowerCase()
+                  };
+                  String _pass = passwordGenerator(stringMap);
+                  SnackBar snackBar = SnackBar(
+                    content: Text(_pass),
+                    action: SnackBarAction(
+                        label: 'Copy',
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: _pass));
+                        }),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }, 'Generate', Icons.password)
+              ],
             ),
           ),
         ),
@@ -283,73 +280,71 @@ class WithName extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: SingleChildScrollView(
-            child: IntrinsicHeight(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Divider(
-                    color: white,
-                    height: 32,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Divider(
+                  color: white,
+                  height: 32,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Your Name',
+                    labelText: 'Name',
+                    border: OutlineInputBorder(),
                   ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Your Name',
-                      labelText: 'Name',
-                      border: OutlineInputBorder(),
-                    ),
-                    textAlign: TextAlign.center,
-                    onChanged: (value) => _name = value,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) => _name = value,
+                ),
+                const Divider(
+                  color: white,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Your Code',
+                    suffixIcon: Icon(Icons.visibility),
+                    labelText: 'Code',
+                    border: OutlineInputBorder(),
                   ),
-                  const Divider(
-                    color: white,
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Your Code',
-                      suffixIcon: Icon(Icons.visibility),
-                      labelText: 'Code',
-                      border: OutlineInputBorder(),
-                    ),
-                    textAlign: TextAlign.center,
-                    obscureText: true,
-                    onChanged: (value) => _code = value,
-                  ),
-                  const Divider(
-                    color: white,
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                        hintText: 'EX:google.com',
-                        labelText: 'Domain',
-                        border: OutlineInputBorder()),
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.url,
-                    onChanged: (value) => _domain = value,
-                  ),
-                  const Divider(
-                    color: white,
-                    height: 32,
-                  ),
-                  TriaButton(() {
-                    Map<String, String> stringMap = {
-                      'name': _name.toLowerCase(),
-                      'code': _code.toLowerCase(),
-                      'domain': _domain.toLowerCase()
-                    };
-                    String _pass = passwordGenerator(stringMap);
-                    SnackBar snackBar = SnackBar(
-                      content: Text(_pass),
-                      action: SnackBarAction(
-                          label: 'Copy',
-                          onPressed: () {
-                            Clipboard.setData(ClipboardData(text: _pass));
-                          }),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }, 'Generate', Icons.password)
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                  obscureText: true,
+                  onChanged: (value) => _code = value,
+                ),
+                const Divider(
+                  color: white,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                      hintText: 'EX:google.com',
+                      labelText: 'Domain',
+                      border: OutlineInputBorder()),
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.url,
+                  onChanged: (value) => _domain = value,
+                ),
+                const Divider(
+                  color: white,
+                  height: 32,
+                ),
+                TriaButton(() {
+                  Map<String, String> stringMap = {
+                    'name': _name.toLowerCase(),
+                    'code': _code.toLowerCase(),
+                    'domain': _domain.toLowerCase()
+                  };
+                  String _pass = passwordGenerator(stringMap);
+                  SnackBar snackBar = SnackBar(
+                    content: Text(_pass),
+                    action: SnackBarAction(
+                        label: 'Copy',
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: _pass));
+                        }),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }, 'Generate', Icons.password)
+              ],
             ),
           ),
         ),
