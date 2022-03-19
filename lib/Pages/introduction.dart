@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:triapass/Pages/main_page.dart';
 import 'package:triapass/main.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
 class Introduction extends StatelessWidget {
-  final passController = TextEditingController();
-  final nameController = TextEditingController();
-  Introduction({Key? key}) : super(key: key);
+  const Introduction({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     SPData().setFalse();
@@ -64,19 +64,23 @@ class Introduction extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(hintText: 'Name'),
-                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter a name',
+                    border: OutlineInputBorder(),
+                    labelText: "Name",
+                  ),
                   textAlign: TextAlign.center,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (value) {
+                    SPData().setNewName(context, newName: value);
+                    SnackBar snackBar = SnackBar(
+                      content: Text('$value has been saved'),
+                      duration: const Duration(seconds: 1),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                  },
                 ),
-                TriaButton(() {
-                  SPData().setNewName(context, newName: nameController.text);
-                  SnackBar snackBar = SnackBar(
-                    content: Text('${nameController.text} has been saved'),
-                    duration: const Duration(seconds: 1),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }, 'save', Icons.save),
               ],
             ),
           ),
@@ -85,7 +89,7 @@ class Introduction extends StatelessWidget {
             image: RichText(
               textAlign: TextAlign.center,
               text: TriaHeader2('Now set \na', children: [
-                TriaHeader1(' Passwrod'),
+                TriaHeader1(' Password'),
                 TriaBody('\nIt is recommended not to leave it empty',
                     color: primaryColor),
               ]),
@@ -96,20 +100,35 @@ class Introduction extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 TextField(
-                  controller: passController,
-                  decoration: const InputDecoration(hintText: 'Password'),
+                  decoration: InputDecoration(hintText: 'Authentication',
+                    labelText: 'Authentication',
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(icon: Icon(
+                        Provider.of<VisiblePassword>(context, listen: true)
+                            .isVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        onPressed: () {
+                      Provider.of<VisiblePassword>(context, listen: false)
+                          .isVisible = Provider.of<VisiblePassword>(context,
+                          listen: false)
+                          .isVisible
+                          ? false
+                          : true;
+                    })
+                  ),
                   keyboardType: TextInputType.text,
-                  obscureText: true,
+                  obscureText: Provider.of<VisiblePassword>(context , listen: false).isHide,
                   textAlign: TextAlign.center,
+                  onSubmitted: (value){
+                    SPData().setNewPass(context, newPass: value);
+                    SnackBar snackBar = const SnackBar(
+                      content: Text('Password has been saved'),
+                      duration: Duration(seconds: 1),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                 ),
-                TriaButton(() {
-                  SPData().setNewPass(context, newPass: passController.text);
-                  SnackBar snackBar = const SnackBar(
-                    content: Text('Password has been saved'),
-                    duration: Duration(seconds: 1),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }, 'save', Icons.save),
               ],
             ),
           ),

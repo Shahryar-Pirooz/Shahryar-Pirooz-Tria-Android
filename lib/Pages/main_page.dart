@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:triapass/main.dart';
 import 'package:triapass/password_generate.dart';
 import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
 class MainPage extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _drawerscaffoldkey =
+  final GlobalKey<ScaffoldState> _drawerScaffoldKey =
       GlobalKey<ScaffoldState>();
   MainPage({Key? key}) : super(key: key);
 
@@ -17,7 +17,7 @@ class MainPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        key: _drawerscaffoldkey,
+        key: _drawerScaffoldKey,
         // resizeToAvoidBottomInset: false,
         drawer: Drawer(
           elevation: 1,
@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
                       TextEditingController _controller =
                           TextEditingController();
                       return AlertDialog(
-                        //TODO : change TextField
+                        //TODO : change it
                         title: const Text('Change Name'),
                         content: SingleChildScrollView(
                           child: Column(
@@ -145,10 +145,10 @@ class MainPage extends StatelessWidget {
           leading: IconButton(
             icon: Icon(context.watch<ChangeDrawerIcon>().icon),
             onPressed: () {
-              if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
+              if (_drawerScaffoldKey.currentState!.isDrawerOpen) {
                 Navigator.pop(context);
               } else {
-                _drawerscaffoldkey.currentState!.openDrawer();
+                _drawerScaffoldKey.currentState!.openDrawer();
               }
             },
           ),

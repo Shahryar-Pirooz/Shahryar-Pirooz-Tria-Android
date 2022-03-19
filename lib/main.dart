@@ -64,8 +64,8 @@ class VisiblePassword with ChangeNotifier, DiagnosticableTreeMixin {
   bool get isVisible => _isVisible;
   bool get isHide => _isVisible ? false : true;
 
-  set isVisible(isVible) {
-    _isVisible = isVible;
+  set isVisible(isVisible) {
+    _isVisible = isVisible;
     notifyListeners();
   }
 }
@@ -86,9 +86,9 @@ class Preload extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data) {
-                return Introduction();
+                return const Introduction();
               } else {
-                return Authentication();
+                  return Authentication();
               }
             } else {
               return Container(
