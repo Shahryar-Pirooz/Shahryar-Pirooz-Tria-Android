@@ -86,9 +86,9 @@ class Preload extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data) {
-                return const Introduction();
+                return Introduction();
               } else {
-                  return Authentication();
+                return Authentication();
               }
             } else {
               return Container(

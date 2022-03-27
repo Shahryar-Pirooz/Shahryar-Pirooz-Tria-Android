@@ -7,7 +7,9 @@ import 'package:triapass/src/components.dart';
 import 'package:triapass/src/custom_color.dart';
 
 class Introduction extends StatelessWidget {
-  const Introduction({Key? key}) : super(key: key);
+  final _controllerName = TextEditingController();
+  final _controllerCode = TextEditingController();
+  Introduction({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +65,36 @@ class Introduction extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: 'Enter a name',
-                    border: OutlineInputBorder(),
-                    labelText: "Name",
+                Focus(
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Enter a name',
+                      border: OutlineInputBorder(),
+                      labelText: "Name",
+                    ),
+                    textAlign: TextAlign.center,
+                    textInputAction: TextInputAction.done,
+                    controller: _controllerName,
+                    onSubmitted: (value) {
+                      SPData().setNewName(context, newName: value);
+                      SnackBar snackBar = SnackBar(
+                        content: Text('$value has been saved'),
+                        duration: const Duration(seconds: 1),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
                   ),
-                  textAlign: TextAlign.center,
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (value) {
-                    SPData().setNewName(context, newName: value);
-                    SnackBar snackBar = SnackBar(
-                      content: Text('$value has been saved'),
-                      duration: const Duration(seconds: 1),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+                  onFocusChange: (hasFocus) {
+                    if (!hasFocus) {
+                      //TODO: here
+                      SPData()
+                          .setNewName(context, newName: _controllerName.text);
+                      SnackBar snackBar = SnackBar(
+                        content: Text('${_controllerName.text} has been saved'),
+                        duration: const Duration(seconds: 1),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   },
                 ),
               ],
@@ -100,27 +116,31 @@ class Introduction extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 TextField(
-                  decoration: InputDecoration(hintText: 'Authentication',
-                    labelText: 'Authentication',
-                    border: const OutlineInputBorder(),
-                    suffixIcon: IconButton(icon: Icon(
-                        Provider.of<VisiblePassword>(context, listen: true)
-                            .isVisible
-                            ? Icons.visibility_off
-                            : Icons.visibility),
-                        onPressed: () {
-                      Provider.of<VisiblePassword>(context, listen: false)
-                          .isVisible = Provider.of<VisiblePassword>(context,
-                          listen: false)
-                          .isVisible
-                          ? false
-                          : true;
-                    })
-                  ),
+                  decoration: InputDecoration(
+                      hintText: 'Authentication',
+                      labelText: 'Authentication',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                          icon: Icon(Provider.of<VisiblePassword>(context,
+                                      listen: true)
+                                  .isVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            Provider.of<VisiblePassword>(context, listen: false)
+                                .isVisible = Provider.of<VisiblePassword>(
+                                        context,
+                                        listen: false)
+                                    .isVisible
+                                ? false
+                                : true;
+                          })),
                   keyboardType: TextInputType.text,
-                  obscureText: Provider.of<VisiblePassword>(context , listen: false).isHide,
+                  obscureText:
+                      Provider.of<VisiblePassword>(context, listen: false)
+                          .isHide,
                   textAlign: TextAlign.center,
-                  onSubmitted: (value){
+                  onSubmitted: (value) {
                     SPData().setNewPass(context, newPass: value);
                     SnackBar snackBar = const SnackBar(
                       content: Text('Password has been saved'),
