@@ -9,7 +9,6 @@ import 'package:triapass/src/custom_color.dart';
 
 class Introduction extends StatelessWidget {
   final _controllerName = TextEditingController();
-  final _controllerCode = TextEditingController();
   Introduction({Key? key}) : super(key: key);
 
   @override

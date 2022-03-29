@@ -40,7 +40,6 @@ class MainPage extends StatelessWidget {
                       TextEditingController _controller =
                           TextEditingController();
                       return AlertDialog(
-                        //TODO : change it
                         title: const Text('Change Name'),
                         content: SingleChildScrollView(
                           child: Column(
