@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:triapass/Pages/main_page.dart';
@@ -14,13 +15,14 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SPData().setFalse();
+    String imagePath = "assets/images";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: IntroductionScreen(
         pages: [
           //first page
           PageViewModel(
-            image: Image.asset('assets/images/Locked.png'),
+            image: SvgPicture.asset('$imagePath/Locked.svg'),
             title: "",
             bodyWidget: Center(
                 child: RichText(
@@ -48,7 +50,7 @@ class Introduction extends StatelessWidget {
                       TriaBody(' Tria', color: primaryColor),
                       TriaBody(' offline.')
                     ]))),
-            image: Image.asset('assets/images/Searching.png'),
+            image: SvgPicture.asset('$imagePath/Searching.svg'),
           ),
           //Third page
           PageViewModel(
@@ -65,36 +67,22 @@ class Introduction extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Focus(
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter a name',
-                      border: OutlineInputBorder(),
-                      labelText: "Name",
-                    ),
-                    textAlign: TextAlign.center,
-                    textInputAction: TextInputAction.done,
-                    controller: _controllerName,
-                    onSubmitted: (value) {
-                      SPData().setNewName(context, newName: value);
-                      SnackBar snackBar = SnackBar(
-                        content: Text('$value has been saved'),
-                        duration: const Duration(seconds: 1),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter a name',
+                    border: OutlineInputBorder(),
+                    labelText: "Name",
                   ),
-                  onFocusChange: (hasFocus) {
-                    if (!hasFocus) {
-                      //TODO: here
-                      SPData()
-                          .setNewName(context, newName: _controllerName.text);
-                      SnackBar snackBar = SnackBar(
-                        content: Text('${_controllerName.text} has been saved'),
-                        duration: const Duration(seconds: 1),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
+                  textAlign: TextAlign.center,
+                  textInputAction: TextInputAction.done,
+                  controller: _controllerName,
+                  onSubmitted: (value) {
+                    SPData().setNewName(context, newName: value);
+                    SnackBar snackBar = SnackBar(
+                      content: Text('$value has been saved'),
+                      duration: const Duration(seconds: 1),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                 ),
               ],
@@ -156,7 +144,7 @@ class Introduction extends StatelessWidget {
           //last page
           PageViewModel(
             decoration: const PageDecoration(pageColor: primaryColor),
-            image: Image.asset('assets/images/Cat.png'),
+            image: SvgPicture.asset('$imagePath/Cat.svg'),
             title: '',
             bodyWidget: RichText(
               text: TriaHeader1('Good Lock'),
