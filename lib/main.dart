@@ -107,7 +107,8 @@ class SPData {
   late Future<String> _name;
   late Future<String> _pass;
 
-  Future<void> setNewName(BuildContext context, {String newName = ''}) async {
+  Future<void> setNewName(BuildContext context,
+      {String newName = 'Tria'}) async {
     final prefs = await _prefs;
     final name = newName;
     _name = prefs.setString('name', name).then((bool success) => name);
@@ -129,7 +130,7 @@ class SPData {
 
   Future<bool> initProviderData(BuildContext context) async {
     final prefs = await _prefs;
-    final name = prefs.getString('name') ?? '';
+    final name = prefs.getString('name') ?? 'Tria';
     final pass = prefs.getString('pass') ?? '';
     final isFirst = prefs.getBool('isFirst') ?? true;
     _isFirst =

@@ -185,8 +185,8 @@ class WithoutName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _name = context.watch<ChangeVal>().name;
-    String _domain = '';
-    String _code = '';
+    String _domain = 'tria';
+    String _code = 'tria';
 
     return WillPopScope(
       onWillPop: () => exit(0),
