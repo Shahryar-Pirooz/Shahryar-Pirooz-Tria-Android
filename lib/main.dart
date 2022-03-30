@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triapass/Pages/authentication.dart';
+import 'package:triapass/Pages/main_page.dart';
 import 'package:triapass/src/custom_color.dart';
 import 'Pages/introduction.dart';
 
@@ -84,11 +85,16 @@ class Preload extends StatelessWidget {
         themeMode: ThemeMode.dark,
         home: FutureBuilder<bool>(
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            String _pass = Provider.of<ChangeVal>(context, listen: false).pass;
             if (snapshot.hasData) {
               if (snapshot.data) {
                 return Introduction();
               } else {
-                return Authentication();
+                if (_pass != '') {
+                  return Authentication();
+                } else {
+                  return MainPage();
+                }
               }
             } else {
               return Container(
