@@ -59,7 +59,7 @@ class Introduction extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TriaHeader2('At first we need\na', children: [
                 TriaHeader1(' NAME'),
-                TriaBody('\nit can be empty and you can change it later',
+                TriaBody('\nYou can always change your name later',
                     color: primaryColor),
               ]),
             ),
