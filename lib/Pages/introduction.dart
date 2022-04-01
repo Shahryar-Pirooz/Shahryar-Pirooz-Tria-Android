@@ -9,6 +9,8 @@ import 'package:triapass/src/custom_color.dart';
 
 class Introduction extends StatelessWidget {
   final _controllerName = TextEditingController();
+  final _controllerPassword = TextEditingController();
+
   Introduction({Key? key}) : super(key: key);
 
   @override
@@ -75,15 +77,11 @@ class Introduction extends StatelessWidget {
                   textAlign: TextAlign.center,
                   textInputAction: TextInputAction.done,
                   controller: _controllerName,
-                  onSubmitted: (value) {
-                    SPData().setNewName(context, newName: value);
-                    SnackBar snackBar = SnackBar(
-                      content: Text('$value has been saved'),
-                      duration: const Duration(seconds: 1),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
+                  onSubmitted: (value) => saveName(context, value),
                 ),
+                const Divider(),
+                TriaButton(() => saveName(context, _controllerName.text),
+                    'Save', Icons.save)
               ],
             ),
           ),
@@ -127,15 +125,13 @@ class Introduction extends StatelessWidget {
                       Provider.of<VisiblePassword>(context, listen: false)
                           .isHide,
                   textAlign: TextAlign.center,
-                  onSubmitted: (value) {
-                    SPData().setNewPass(context, newPass: value);
-                    SnackBar snackBar = const SnackBar(
-                      content: Text('Password has been saved'),
-                      duration: Duration(seconds: 1),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
+                  onSubmitted: (value) => savePassword(context, value),
                 ),
+                const Divider(),
+                TriaButton(
+                    () => savePassword(context, _controllerPassword.text),
+                    'Save',
+                    Icons.save)
               ],
             ),
           ),
@@ -167,5 +163,23 @@ class Introduction extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void savePassword(BuildContext context, String value) {
+    SPData().setNewPass(context, newPass: value);
+    SnackBar snackBar = const SnackBar(
+      content: Text('Password has been saved'),
+      duration: Duration(seconds: 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void saveName(BuildContext context, String value) {
+    SPData().setNewName(context, newName: value);
+    SnackBar snackBar = SnackBar(
+      content: Text('$value has been saved'),
+      duration: const Duration(seconds: 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
