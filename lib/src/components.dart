@@ -74,45 +74,56 @@ class TriaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        borderRadius: const BorderRadius.all(Radius.circular(25)),
-        color: backgroundColor,
-        child: InkWell(
-          onTap: onPress,
-          splashColor: splashColor,
-          borderRadius: const BorderRadius.all(Radius.circular(25)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 3,
-                child: Center(
-                  child: Icon(
-                    icon,
-                    color: textColor,
-                  ),
-                ),
-              ),
-              Flexible(
-                flex: 4,
-                child: RichText(
-                  text: TriaBody(txt, color: textColor),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      height: 67,
-      width: 164,
-      margin: const EdgeInsetsDirectional.all(16),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(25),
-        ),
-      ),
+    return ElevatedButton.icon(
+      onPressed: onPress,
+      label: Text(txt),
+      icon: Icon(icon),
+      style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(splashColor),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
+          backgroundColor: MaterialStateProperty.all(backgroundColor),
+          foregroundColor: MaterialStateProperty.all(textColor)),
     );
+    //old design
+    //   return Container(
+    //     child: Material(
+    //       borderRadius: const BorderRadius.all(Radius.circular(25)),
+    //       color: backgroundColor,
+    //       child: InkWell(
+    //         onTap: onPress,
+    //         splashColor: splashColor,
+    //         borderRadius: const BorderRadius.all(Radius.circular(25)),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.start,
+    //           children: [
+    //             Flexible(
+    //               flex: 3,
+    //               child: Center(
+    //                 child: Icon(
+    //                   icon,
+    //                   color: textColor,
+    //                 ),
+    //               ),
+    //             ),
+    //             Flexible(
+    //               flex: 4,
+    //               child: RichText(
+    //                 text: TriaBody(txt, color: textColor),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //     height: 67,
+    //     width: 164,
+    //     margin: const EdgeInsetsDirectional.all(16),
+    //     decoration: const BoxDecoration(
+    //       borderRadius: BorderRadius.all(
+    //         Radius.circular(25),
+    //       ),
+    //     ),
+    //   );
   }
 }
 
