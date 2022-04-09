@@ -120,7 +120,7 @@ class MainPage extends StatelessWidget {
     If you like Tria you can support me by sharing Tria with your friends or donating! ''',
                       children: [
                         TriaBody(
-                            '\n\nUrl: https://Tirapass.web.app\n\nLicense: GNU General Public License v3.0\n\nversion: 0.5.2',
+                            '\n\nUrl: https://Tirapass.web.app\n\nLicense: GNU General Public License v3.0\n\nversion: 0.6.0',
                             color: lable)
                       ]),
                 );
